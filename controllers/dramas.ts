@@ -26,4 +26,30 @@ const getDrama = ({ params, response }: { params: { id: string }, response: any 
   }
 }
 
-export { getDramas, getDrama };
+const addDrama =  async ({ request, response }: { request: any, response: any }) => {
+  if (!request.hasBody) {
+    response.status = 400;
+    response.body = { error: "Invalid data" };
+    return;
+  }
+
+  const { name, latestEpisode } = await request.body().value;
+
+  if (!name || !latestEpisode) {
+    response.status = 422;
+    response.body = { error: "Incorrect data. Name and latest episode are required." };
+    return;
+  }
+
+  const drama = {
+    id: globalThis.crypto.randomUUID(),
+    name,
+    latestEpisode,
+  };
+
+  dramas.push(drama);
+
+  response.body = { success: true, id: drama.id };
+};
+
+export { getDramas, getDrama, addDrama };
