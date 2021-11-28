@@ -52,4 +52,33 @@ const addDrama =  async ({ request, response }: { request: any, response: any })
   response.body = { success: true, id: drama.id };
 };
 
-export { getDramas, getDrama, addDrama };
+const updateDrama =  async ({ params, request, response }: { params: { id: string }, request: any, response: any }) => {
+  if (!request.hasBody) {
+    response.status = 400;
+    response.body = { error: "Invalid data" };
+    return;
+  }
+  const drama = dramas.find(({ id }) => id === params.id);
+
+  if (drama) {
+    const { name, latestEpisode } = await request.body().value;
+
+    if (!name || !latestEpisode) {
+      response.status = 422;
+      response.body = { error: "Incorrect data. Name or latest episode are required." };
+      return;
+    } else {
+      drama.name = name;
+      drama.latestEpisode = latestEpisode;
+      response.body = { success: true, id: drama?.id };
+    }
+  } else {
+    response.status = 404;
+    response.body = {
+        success: false,
+        error: "No drama found!",
+    };
+  }
+};
+
+export { getDramas, getDrama, addDrama, updateDrama };

@@ -1,10 +1,11 @@
 import { Router } from "https://deno.land/x/oak/mod.ts";
-import { getDramas, getDrama, addDrama } from "./controllers/dramas.ts";
+import { getDramas, getDrama, addDrama, updateDrama } from "./controllers/dramas.ts";
 
 const router = new Router();
 
 router.get('/api/v1/dramas', getDramas)
     .get('/api/v1/dramas/:id', getDrama)
-    .post('/api/v1/dramas', addDrama);
+    .post('/api/v1/dramas', addDrama)
+    .put('/api/v1/dramas/:id', updateDrama);
 
 export default router;
