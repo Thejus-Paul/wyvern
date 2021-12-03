@@ -1,6 +1,6 @@
 import { Drama } from '../types.ts'
 
-const dramas: Drama[] = [];
+let dramas: Drama[] = [];
 
 const getDramas = ({ response }: { response: any }) => {
   response.body = {
@@ -81,4 +81,12 @@ const updateDrama =  async ({ params, request, response }: { params: { id: strin
   }
 };
 
-export { getDramas, getDrama, addDrama, updateDrama };
+const deleteDrama = ({ params, response}: { params: { id: string }, response: any}) => {
+  dramas = dramas.filter(({ id }) => id !== params.id);
+  response.body = {
+    success: true,
+    messsage: "Drama Removed"
+  }
+}
+
+export { getDramas, getDrama, addDrama, updateDrama, deleteDrama };
