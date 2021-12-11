@@ -1,4 +1,4 @@
-import { Router } from "https://deno.land/x/oak/mod.ts";
+import { Router } from "./deps.ts";
 import { getDramas, getDrama, addDrama, updateDrama, deleteDrama } from "./controllers/dramas.ts";
 
 const router = new Router();
