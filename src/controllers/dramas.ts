@@ -1,4 +1,4 @@
-import { Request, Response } from "../../deps.ts";
+import { Bson, Request, Response } from "../../deps.ts";
 import { Dramas } from "../db.ts";
 import { Drama } from '../types.ts'
 
@@ -7,32 +7,18 @@ let dramas: Drama[] = [];
 const getDramas = async ({ response }: { response: Response }): Promise<void> => {
   try {
     const allDramas = await Dramas.find({}, { noCursorTimeout: false }).toArray();
-    response.body = {
-      success: true,
-      data: allDramas,
-    };
+    response.body = { success: true, data: allDramas };
   } catch (error) {
-    response.body = {
-      success: false,
-      error: error,
-    };
+    response.body = { success: false, error };
   }
 };
 
-const getDrama = ({ params, response }: { params: { id: string }, response: Response }): void => {
-  const drama: Drama | undefined = dramas.find(({ id }) => id == params.id);
-
-  response.status = drama ? 200 : 404;
-  if (drama) {
-    response.body = {
-      success: true,
-      data: drama,
-    };
-  } else {
-    response.body = {
-      success: false,
-      error: "Drama Not Found!",
-    };
+const getDrama = async ({ params, response }: { params: { id: string }, response: Response }): Promise<void> => {
+  try {
+    const drama = await Dramas.findOne({ _id: new Bson.ObjectId(params.id) }, { noCursorTimeout: false });
+    response.body = { success: true, data: drama };
+  } catch (error) {
+    response.body = { success: false, error };
   }
 }
 
