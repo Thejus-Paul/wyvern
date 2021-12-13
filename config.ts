@@ -1,4 +1,12 @@
-const APP_HOST: string = Deno.env.get("APP_HOST") || "127.0.0.1";
-const APP_PORT: number = Number(Deno.env.get("APP_PORT")) || 8000;
+import { config } from "./deps.ts";
 
-export { APP_HOST, APP_PORT };
+const env = config();
+
+export const { 
+  APP_HOST, 
+  DB_USERNAME, 
+  DB_PASSWORD, 
+  DB_CLUSTER_URL, 
+  DB_NAME } = env;
+
+export const APP_PORT: number = parseInt(env.APP_PORT, 10);
