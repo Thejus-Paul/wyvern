@@ -1,13 +1,22 @@
 import { Request, Response } from "../../deps.ts";
+import { Dramas } from "../db.ts";
 import { Drama } from '../types.ts'
 
 let dramas: Drama[] = [];
 
-const getDramas = ({ response }: { response: Response }): void => {
-  response.body = {
-    success: true,
-    data: dramas,
-  };
+const getDramas = async ({ response }: { response: Response }): Promise<void> => {
+  try {
+    const allDramas = await Dramas.find({}, { noCursorTimeout: false }).toArray();
+    response.body = {
+      success: true,
+      data: allDramas,
+    };
+  } catch (error) {
+    response.body = {
+      success: false,
+      error: error,
+    };
+  }
 };
 
 const getDrama = ({ params, response }: { params: { id: string }, response: Response }): void => {
