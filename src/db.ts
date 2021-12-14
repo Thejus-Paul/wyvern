@@ -8,8 +8,6 @@ const client = new MongoClient();
 await client.connect(MONGODB_URL);
 
 const db = client.database(DB_NAME);
-const Dramas = db.collection<DramaSchema>("dramas");
+const dramas = db.collection<DramaSchema>("dramas");
 
-export { Dramas };
-
-
+export { dramas };
