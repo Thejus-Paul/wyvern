@@ -1,12 +1,9 @@
 import { Bson, Request, Response } from "../../deps.ts";
-import { Dramas } from "../db.ts";
-import { Drama } from '../types.ts'
-
-let dramas: Drama[] = [];
+import { dramas } from "../db.ts";
 
 const getDramas = async ({ response }: { response: Response }): Promise<void> => {
   try {
-    const allDramas = await Dramas.find({}, { noCursorTimeout: false }).toArray();
+    const allDramas = await dramas.find({}, { noCursorTimeout: false }).toArray();
     response.body = { success: true, data: allDramas };
   } catch (error) {
     response.body = { success: false, error };
@@ -15,8 +12,8 @@ const getDramas = async ({ response }: { response: Response }): Promise<void> =>
 
 const getDrama = async ({ params, response }: { params: { id: string }, response: Response }): Promise<void> => {
   try {
-    const drama = await Dramas.findOne({ _id: new Bson.ObjectId(params.id) }, { noCursorTimeout: false });
-    response.body = { success: true, data: drama ? drama : "No drama found!" };
+    const drama = await dramas.findOne({ _id: new Bson.ObjectId(params.id) }, { noCursorTimeout: false });
+    response.body = { success: true, data: drama ? drama : "Drama not found!" };
   } catch (error) {
     response.body = { success: false, error };
   }
@@ -26,8 +23,8 @@ const addDrama =  async ({ request, response }: { request: Request, response: Re
   try {
     const newDramaValues = await request.body().value;
 
-    const newDramaId = await Dramas.insertOne(newDramaValues);
-    response.body = { success: true, id: newDramaId };
+    const newDramaId = await dramas.insertOne(newDramaValues);
+    response.body = { success: true, id: newDramaId, notice: "Drama was successfully added" };
   }
   catch (error) {
     response.body = { success: false, error };
@@ -35,16 +32,11 @@ const addDrama =  async ({ request, response }: { request: Request, response: Re
 };
 
 const updateDrama =  async ({ params, request, response }: { params: { id: string }, request: Request, response: Response }): Promise<void> => {
-  const drama = dramas.find(({ id }) => id === params.id);
-
   try {
-    if (drama) {
-      const { name, latestEpisode } = await request.body().value;
-  
-      drama.name = name;
-      drama.latestEpisode = latestEpisode;
-      response.body = { success: true, id: drama?.id };
-    }
+    const newDramaValues = await request.body().value;
+
+    await dramas.updateOne({ _id: new Bson.ObjectId(params.id)}, { $set: newDramaValues });
+    response.body = { success: true, notice: "Drama was successfully updated!" };
   } catch (error) {
     response.body = { success: false, error };
   }
@@ -52,11 +44,16 @@ const updateDrama =  async ({ params, request, response }: { params: { id: strin
 
 const deleteDrama = async ({ params, response }: { params: { id: string }, response: Response }): Promise<void> => {
   try {
-    await Dramas.deleteOne({ _id: new Bson.ObjectId(params.id) });
-    response.body = { success: true, messsage: "The drama has been removed" };
+    await dramas.deleteOne({ _id: new Bson.ObjectId(params.id) });
+    response.body = { success: true, notice: "Drama was successfully deleted!" };
   } catch (error) {
     response.body = { success: false, error };
   }
 }
 
-export { getDramas, getDrama, addDrama, updateDrama, deleteDrama };
+export { 
+  getDramas, 
+  getDrama, 
+  addDrama, 
+  updateDrama, 
+  deleteDrama };
