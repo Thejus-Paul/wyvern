@@ -16,7 +16,7 @@ const getDramas = async ({ response }: { response: Response }): Promise<void> =>
 const getDrama = async ({ params, response }: { params: { id: string }, response: Response }): Promise<void> => {
   try {
     const drama = await Dramas.findOne({ _id: new Bson.ObjectId(params.id) }, { noCursorTimeout: false });
-    response.body = { success: true, data: drama };
+    response.body = { success: true, data: drama ? drama : "No drama found!" };
   } catch (error) {
     response.body = { success: false, error };
   }
@@ -50,11 +50,12 @@ const updateDrama =  async ({ params, request, response }: { params: { id: strin
   }
 };
 
-const deleteDrama = ({ params, response }: { params: { id: string }, response: Response }): void => {
-  dramas = dramas.filter(({ id }) => id !== params.id);
-  response.body = {
-    success: true,
-    messsage: "Drama Removed"
+const deleteDrama = async ({ params, response }: { params: { id: string }, response: Response }): Promise<void> => {
+  try {
+    await Dramas.deleteOne({ _id: new Bson.ObjectId(params.id) });
+    response.body = { success: true, messsage: "The drama has been removed" };
+  } catch (error) {
+    response.body = { success: false, error };
   }
 }
 
