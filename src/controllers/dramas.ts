@@ -24,16 +24,10 @@ const getDrama = async ({ params, response }: { params: { id: string }, response
 
 const addDrama =  async ({ request, response }: { request: Request, response: Response }): Promise<void> => {
   try {
-    const { name, latestEpisode } = await request.body().value;
+    const newDramaValues = await request.body().value;
 
-    const drama = {
-      id: globalThis.crypto.randomUUID(),
-      name,
-      latestEpisode,
-    };
-    dramas.push(drama);
-
-    response.body = { success: true, id: drama.id };
+    const newDramaId = await Dramas.insertOne(newDramaValues);
+    response.body = { success: true, id: newDramaId };
   }
   catch (error) {
     response.body = { success: false, error };
