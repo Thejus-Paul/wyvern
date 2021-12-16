@@ -1,12 +1,13 @@
 {
-    "deno.enable": true,
-    "deno.lint": true,
-    "deno.unstable": false,
-    "deno.suggest.imports.hosts": {
-        "https://deno.land": true
-    },
-    "files.autoSave": "afterDelay",
-    "editor.tabSize": 2,
-    "editor.wordWrap": "on",
-    "editor.formatOnSave": true
+  "deno.enable": true,
+  "deno.lint": true,
+  "deno.unstable": false,
+  "deno.suggest.imports.hosts": {
+    "https://deno.land": true
+  },
+  "files.autoSave": "afterDelay",
+  "editor.tabSize": 2,
+  "editor.wordWrap": "on",
+  "editor.formatOnSave": true,
+  "editor.defaultFormatter": "denoland.vscode-deno"
 }
