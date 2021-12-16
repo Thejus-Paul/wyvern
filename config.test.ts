@@ -1,4 +1,11 @@
-import { config, assertExists, assertNotEquals, assertMatch, assertNotMatch, AssertionError } from "./deps.ts";
+import {
+  assertExists,
+  AssertionError,
+  assertMatch,
+  assertNotEquals,
+  assertNotMatch,
+  config,
+} from "./deps.ts";
 
 const env = config();
 
@@ -10,7 +17,7 @@ const assertValueBetween = (actual: number, min: number, max: number): void => {
     const error = `actual: ${actual} expected to be less than ${max}`;
     throw new AssertionError(error);
   }
-}
+};
 
 Deno.test("environment variable module should be present", () => {
   assertExists(env);
@@ -43,7 +50,6 @@ Deno.test("environment variable 'APP_PORT' should be a number between 1024 and 4
 Deno.test("environment variable 'APP_PORT' should not be nil", () => {
   assertNotEquals(env.APP_PORT, "");
 });
-
 
 Deno.test("environment variable 'APP_PORT' should not be anything other than a number", () => {
   const numericalRegex = new RegExp("^\\D+$");
