@@ -9,4 +9,8 @@ app.use(router.allowedMethods());
 
 console.log(`Listening on port:${APP_PORT}...`);
 
-await app.listen(`${APP_HOST}:${APP_PORT}`);
+if (import.meta.main) {
+  await app.listen(`${APP_HOST}:${APP_PORT}`);
+}
+
+export { app };
