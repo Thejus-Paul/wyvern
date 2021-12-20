@@ -4,7 +4,7 @@ export {
   Response,
   Router,
 } from "https://deno.land/x/oak/mod.ts";
-export { Bson, MongoClient } from "https://deno.land/x/mongo@v0.28.1/mod.ts";
+export { Bson, MongoClient } from "https://deno.land/x/mongo/mod.ts";
 export { config } from "https://deno.land/x/dotenv/mod.ts";
 export {
   assertExists,
@@ -12,5 +12,5 @@ export {
   assertMatch,
   assertNotEquals,
   assertNotMatch,
-} from "https://deno.land/std@0.117.0/testing/asserts.ts";
+} from "https://deno.land/std/testing/asserts.ts";
 export { superoak } from "https://deno.land/x/superoak/mod.ts";

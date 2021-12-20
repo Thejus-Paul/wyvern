@@ -18,3 +18,8 @@ export interface DramaSchema {
 export interface MapDramaSchema {
   [key: string]: string;
 }
+
+export interface WatchedDramaSchema {
+  name: string;
+  lastWatched: number | "Movie";
+}
