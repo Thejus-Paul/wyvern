@@ -1,0 +1,1 @@
+web: deno run --allow-net --allow-read src/server.ts --port=${PORT}
