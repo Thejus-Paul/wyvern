@@ -10,7 +10,7 @@ app.use(router.allowedMethods());
 const { args } = Deno;
 const port = args.length === 0 ? APP_PORT : parse(args).port;
 
-if (import.meta.main && port) {
+if (import.meta.main) {
   console.log(`Listening on port:${port}...`);
   await app.listen(`${APP_HOST}:${port}`);
 }

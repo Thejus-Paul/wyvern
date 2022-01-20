@@ -11,3 +11,5 @@ export const DB_CLUSTER_URL = env.get("DB_CLUSTER_URL");
 export const DB_NAME = env.get("DB_NAME");
 
 export const APP_PORT = env.get("APP_PORT");
+
+console.log(env.toObject());
