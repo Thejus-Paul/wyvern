@@ -8,12 +8,10 @@ app.use(router.routes());
 app.use(router.allowedMethods());
 
 const { args } = Deno;
-const argPort = parse(args).port;
-const port = argPort ? Number(argPort) : APP_PORT;
+const port = args.length === 0 ? APP_PORT : parse(args).port;
 
-console.log(`Listening on port:${port}...`);
-
-if (import.meta.main) {
+if (import.meta.main && port) {
+  console.log(`Listening on port:${port}...`);
   await app.listen(`${APP_HOST}:${port}`);
 }
 
