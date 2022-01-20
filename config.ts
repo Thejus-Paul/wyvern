@@ -1,13 +1,12 @@
 import { config } from "./deps.ts";
 
-const env = config();
+const env = Deno.env.toObject();
 
 export const {
   APP_HOST,
+  APP_PORT,
   DB_USERNAME,
   DB_PASSWORD,
   DB_CLUSTER_URL,
   DB_NAME,
 } = env;
-
-export const APP_PORT: number = parseInt(env.APP_PORT, 10);

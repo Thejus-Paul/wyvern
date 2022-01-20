@@ -14,3 +14,4 @@ export {
   assertNotMatch,
 } from "https://deno.land/std/testing/asserts.ts";
 export { superoak } from "https://deno.land/x/superoak/mod.ts";
+export { parse } from "https://deno.land/std/flags/mod.ts";
