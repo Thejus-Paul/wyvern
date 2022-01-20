@@ -1,3 +1,7 @@
+import { config } from "./deps.ts";
+
+const env = Deno.env.toObject();
+
 export const {
   APP_HOST,
   APP_PORT,
@@ -5,4 +9,4 @@ export const {
   DB_PASSWORD,
   DB_CLUSTER_URL,
   DB_NAME,
-} = Deno.env.toObject();
+} = env;
