@@ -10,6 +10,6 @@ export const {
   DB_NAME,
 } = env;
 
-console.log("Environment Variables", env);
+console.log("Environment Variables", Deno.env);
 
 export const APP_PORT: number = parseInt(env.APP_PORT, 10);
