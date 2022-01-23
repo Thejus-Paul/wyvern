@@ -15,3 +15,9 @@ export {
 } from "https://deno.land/std/testing/asserts.ts";
 export { superoak } from "https://deno.land/x/superoak/mod.ts";
 export { parse } from "https://deno.land/std/flags/mod.ts";
+export {
+  create,
+  getNumericDate,
+  verify,
+} from "https://deno.land/x/djwt/mod.ts";
+export type { Header } from "https://deno.land/x/djwt/mod.ts";
