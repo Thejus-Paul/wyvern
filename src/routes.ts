@@ -6,6 +6,7 @@ import {
   getDramas,
   updateDrama,
 } from "./controllers/dramas.ts";
+import { login, register } from "./controllers/auth.ts";
 import { addWatchedDrama } from "./controllers/watched_dramas.ts";
 
 const router = new Router({ prefix: "/api/v1" });
@@ -15,6 +16,8 @@ router.get("/dramas", getDramas)
   .post("/dramas", addDrama)
   .put("/dramas/:id", updateDrama)
   .delete("/dramas/:id", deleteDrama)
-  .post("/watched_dramas", addWatchedDrama);
+  .post("/watched_dramas", addWatchedDrama)
+  .post("/register", register)
+  .post("/login", login);
 
 export default router;
