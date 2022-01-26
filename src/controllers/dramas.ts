@@ -1,5 +1,6 @@
 import { Bson, Request, Response } from "../../deps.ts";
 import { dramas } from "../db.ts";
+import { create } from "./concerns/crud.ts";
 
 const getDramas = async (
   { response }: { response: Response },
@@ -30,14 +31,7 @@ const addDrama = async (
   { request, response }: { request: Request; response: Response },
 ): Promise<void> => {
   try {
-    const newDramaValues = await request.body().value;
-
-    const newDramaId = await dramas.insertOne(newDramaValues);
-    response.body = {
-      success: true,
-      id: newDramaId,
-      notice: "Drama was successfully added",
-    };
+    await create({ request, response }, dramas, "Drama");
   } catch (error) {
     response.body = { success: false, error };
   }
