@@ -11,18 +11,21 @@ A deno implementation of DraMa Spy backend server.
 ### Local Machine
 
 1. Add a `.env` file with the corresponding details from your MongoDB cluster:
+
 ```
 APP_HOST=0.0.0.0
-APP_PORT=8000
+APP_PORT=8100
 DB_USERNAME=root
 DB_PASSWORD=password
 DB_CLUSTER_URL=something.my.mongodb.net
 DB_NAME=mydatabase
 ```
-2. Run `deno run --allow-net --allow-env --allow-read src/server.ts --port=8000`
+
+2. Run `deno run --allow-net --allow-env --allow-read src/server.ts --port=8100`
 
 ### Docker
 
-1. Build docker with command: `docker build -t app .`
-2. Run docker with command: `docker run -it --init -p 8000:8000 app`
-3. Go to `http://localhost:8000/api/v1/dramas`
+1. Build docker with command below and remove the `platform` if you are using x86 processor.
+   `docker build --platform=linux/arm64/v8 -t wyvern .`
+2. Run docker with command: `docker run -it --init -p 8100:8100 wyvern`.
+3. Go to `http://localhost:8100/api/v1/dramas`.
