@@ -17,15 +17,26 @@ on:
   schedule:
     - cron: '23 11 * * 4'
 
+permissions:
+  contents: read
+
 jobs:
   OSSAR-Scan:
     # OSSAR runs on windows-latest.
     # ubuntu-latest and macos-latest support coming soon
+    permissions:
+      contents: read # for actions/checkout to fetch code
+      security-events: write # for github/codeql-action/upload-sarif to upload SARIF results
     runs-on: windows-latest
 
     steps:
+    - name: Harden Runner
+      uses: step-security/harden-runner@14dc64f30986eaa2ad2dddcec073f5aab18e5a24 # v1
+      with:
+        egress-policy: audit
+
     - name: Checkout repository
-      uses: actions/checkout@v2
+      uses: actions/checkout@629c2de402a417ea7690ca6ce3f33229e27606a5 # v2
 
     # Ensure a compatible version of dotnet is installed.
     # The [Microsoft Security Code Analysis CLI](https://aka.ms/mscadocs) is built with dotnet v3.1.201.
@@ -39,11 +50,11 @@ jobs:
 
       # Run open source static analysis tools
     - name: Run OSSAR
-      uses: github/ossar-action@v1
+      uses: github/ossar-action@18202dc5f5cdf7ca97cf339a6ab58ec01113b655 # v1
       id: ossar
 
       # Upload results to the Security tab
     - name: Upload OSSAR results
-      uses: github/codeql-action/upload-sarif@v1
+      uses: github/codeql-action/upload-sarif@8b37404d562d866ad6a65d0ecb4fa5131e047ca4 # v1
       with:
         sarif_file: ${{ steps.ossar.outputs.sarifFile }}
