@@ -29,3 +29,9 @@ DB_NAME=mydatabase
    `docker build --platform=linux/arm64/v8 -t wyvern .`
 2. Run docker with command: `docker run -it --init -p 8100:8100 wyvern`.
 3. Go to `http://localhost:8100/api/v1/dramas`.
+
+## Authors
+
+[Thejus Paul](https://github.com/Thejus-Paul)
+
+See also the list of [contributors](https://github.com/thejus-paul/wyvern/graphs/contributors) who participated in this project.
