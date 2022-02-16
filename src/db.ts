@@ -15,6 +15,6 @@ await client.connect(MONGODB_URL);
 
 const db = client.database(DB_NAME);
 const dramas = db.collection<DramaSchema>("dramas");
-const watchedDramas = db.collection<WatchedDramaSchema>("data");
+const watchedDramas = db.collection<WatchedDramaSchema>("watchedList");
 
 export { dramas, watchedDramas };

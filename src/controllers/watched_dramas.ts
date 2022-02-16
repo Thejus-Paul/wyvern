@@ -12,4 +12,18 @@ const addWatchedDrama = async (
   }
 };
 
-export { addWatchedDrama };
+const getWatchedDramas = async (
+  { response }: { response: Response },
+): Promise<void> => {
+  try {
+    const allWatchedDramas = await watchedDramas.find({}, {
+      noCursorTimeout: false,
+    })
+      .toArray();
+    response.body = { success: true, data: allWatchedDramas };
+  } catch (error) {
+    response.body = { success: false, error };
+  }
+};
+
+export { addWatchedDrama, getWatchedDramas };
