@@ -33,7 +33,7 @@ Deno.test("it should do CRUD operations on the drama", async () => {
 
   const createRequest = await superoak(app);
   await createRequest.post("/api/v1/dramas")
-    .set("Content-Type", "application/json")
+    .set("Content-Type", "application/json; charset=utf-8")
     .send(JSON.stringify(SAMPLE_DATA))
     .expect(({ body }) => {
       try {
