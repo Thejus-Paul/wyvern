@@ -4,8 +4,11 @@ const create = async (
   { request, response }: { request: Request; response: Response },
   collection: Collection<any>,
   item: string,
+  otherValues = {},
 ): Promise<void> => {
-  const newValue = await request.body().value;
+  let newValue = await request.body().value;
+
+  newValue = otherValues ? { ...newValue, ...otherValues } : newValue;
 
   const newId = await collection.insertOne(newValue);
   response.body = {
