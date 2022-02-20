@@ -14,7 +14,8 @@ const client = new MongoClient();
 await client.connect(MONGODB_URL);
 
 const db = client.database(DB_NAME);
+const users = db.collection("users");
 const dramas = db.collection<DramaSchema>("dramas");
 const watchedDramas = db.collection<WatchedDramaSchema>("watchedList");
 
-export { dramas, watchedDramas };
+export { dramas, users, watchedDramas };
